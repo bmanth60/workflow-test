@@ -1,18 +1,16 @@
-var data = [
-  {author: "Pete Hunt", text: "This is one comment"},
-  {author: "Jordan Walke", text: "This is *another* comment"}
-];
 var converter = new Showdown.converter();
 var CommentBox = React.createClass({
   handleCommentSubmit: function(comment) {
     var comments = this.state.data;
     var newComments = comments.concat([comment]);
     this.setState({data: newComments});
+    console.log(comment);
     $.ajax({
       url: this.props.url,
       dataType: 'json',
+      contentType: 'application/json',
       type: 'POST',
-      data: comment,
+      data: JSON.stringify(comment),
       success: function(data) {
         this.setState({data: data});
       }.bind(this),
@@ -29,7 +27,7 @@ var CommentBox = React.createClass({
       url: this.props.url,
       dataType: 'json',
       success: function(data) {
-        this.setState({data: data});
+        this.setState({data: data._embedded.comments});
       }.bind(this),
       error: function(xhr, status, err) {
         console.error(this.props.url, status, err.toString());
@@ -107,6 +105,6 @@ var Comment = React.createClass({
 });
 
 React.render(
-  <CommentBox url="/comments.json" />,
+  <CommentBox url="comments" pollInterval={5000} />,
   document.getElementById('content')
 );

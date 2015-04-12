@@ -63,13 +63,13 @@ return array(
     'zf-hal' => array(
         'metadata_map' => array(
             'Comment\\V1\\Rest\\Comments\\CommentsEntity' => array(
-                'entity_identifier_name' => 'id',
+                'entity_identifier_name' => 'commentid',
                 'route_name' => 'comment.rest.comments',
                 'route_identifier_name' => 'comments_id',
                 'hydrator' => 'Zend\\Stdlib\\Hydrator\\ArraySerializable',
             ),
             'Comment\\V1\\Rest\\Comments\\CommentsCollection' => array(
-                'entity_identifier_name' => 'id',
+                'entity_identifier_name' => 'commentid',
                 'route_name' => 'comment.rest.comments',
                 'route_identifier_name' => 'comments_id',
                 'is_collection' => true,
@@ -83,7 +83,33 @@ return array(
                 'table_name' => 'Comments',
                 'hydrator_name' => 'Zend\\Stdlib\\Hydrator\\ArraySerializable',
                 'controller_service_name' => 'Comment\\V1\\Rest\\Comments\\Controller',
-                'entity_identifier_name' => 'id',
+                'entity_identifier_name' => 'commentid',
+                'table_service' => 'Comment\\V1\\Rest\\Comments\\CommentsResource\\Table',
+            ),
+        ),
+    ),
+    'zf-content-validation' => array(
+        'Comment\\V1\\Rest\\Comments\\Controller' => array(
+            'input_filter' => 'Comment\\V1\\Rest\\Comments\\Validator',
+        ),
+    ),
+    'input_filter_specs' => array(
+        'Comment\\V1\\Rest\\Comments\\Validator' => array(
+            0 => array(
+                'name' => 'author',
+                'required' => true,
+                'filters' => array(),
+                'validators' => array(),
+                'allow_empty' => false,
+                'continue_if_empty' => false,
+            ),
+            1 => array(
+                'name' => 'text',
+                'required' => true,
+                'filters' => array(),
+                'validators' => array(),
+                'allow_empty' => false,
+                'continue_if_empty' => false,
             ),
         ),
     ),
