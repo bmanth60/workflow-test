@@ -4,7 +4,6 @@ var CommentBox = React.createClass({
     var comments = this.state.data;
     var newComments = comments.concat([comment]);
     this.setState({data: newComments});
-    console.log(comment);
     $.ajax({
       url: this.props.url,
       dataType: 'json',
@@ -12,7 +11,9 @@ var CommentBox = React.createClass({
       type: 'POST',
       data: JSON.stringify(comment),
       success: function(data) {
-        this.setState({data: data});
+        console.log(data);
+        //Data returned is not array of all elems, do not set state to this. just wait for poll
+        //this.setState({data: data});
       }.bind(this),
       error: function(xhr, status, err) {
         console.error(this.props.url, status, err.toString());
