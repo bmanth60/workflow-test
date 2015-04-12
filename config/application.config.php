@@ -22,7 +22,8 @@ return array(
         'ZF\\Rest',
         'ZF\\Rpc',
         'ZF\\Versioning',
-        'Test'
+        'Test',
+        'Comment'
     ),
     'module_listener_options' => array(
         'module_paths' => array(
